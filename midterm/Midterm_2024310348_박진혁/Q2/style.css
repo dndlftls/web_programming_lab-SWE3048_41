@@ -1,0 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+/* Title styling */
+h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+}
+
+/* Align labels & inputs vertically */
+.Calculator {
+  width: 100%;
+  max-width: 350px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Inputs */
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+input[type="number"]:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 3px rgb(255, 255, 255);
+}
+
+/* Button */
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background-color:  #19a9e7;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Result text */
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;   
+}

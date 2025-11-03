@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>장바구니</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cart">
+    <h1>장바구니</h1>
+
+    <section class="cart-items">
+      <article class="cart-item" data-price="12000">
+        <div class="item-info">
+          <h2 class="item-name">무선 마우스</h2>
+          <p class="item-price">12,000원</p>
+        </div>
+
+        <div class="item-qty">
+          <button class="btn-decrease">-</button>
+          <span class="qty-value">1</span>
+          <button class="btn-increase">+</button>
+        </div>
+
+        <div class="item-subtotal">
+          <span class="subtotal-value">12,000원</span>
+        </div>
+      </article>
+
+      <article class="cart-item" data-price="35000">
+        <div class="item-info">
+          <h2 class="item-name">기계식 키보드</h2>
+          <p class="item-price">35,000원</p>
+        </div>
+
+        <div class="item-qty">
+          <button class="btn-decrease">-</button>
+          <span class="qty-value">1</span>
+          <button class="btn-increase">+</button>
+        </div>
+
+        <div class="item-subtotal">
+          <span class="subtotal-value">35,000원</span>
+        </div>
+      </article>
+
+      <article class="cart-item" data-price="8900">
+        <div class="item-info">
+          <h2 class="item-name">USB-C 케이블</h2>
+          <p class="item-price">8,900원</p>
+        </div>
+
+        <div class="item-qty">
+          <button class="btn-decrease">-</button>
+          <span class="qty-value">2</span>
+          <button class="btn-increase">+</button>
+        </div>
+
+        <div class="item-subtotal">
+          <span class="subtotal-value">17,800원</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="cart-total">
+      <div class="total-row">
+        <span>총 결제 금액</span>
+        <strong id="grand-total">65,800원</strong>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

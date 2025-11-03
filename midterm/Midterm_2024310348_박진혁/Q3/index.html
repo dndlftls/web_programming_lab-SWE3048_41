@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Restaurant Menu Ordering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <h1>Restaurant Menu Ordering</h1>
+
+        <label class="row gap" for="restaurant">
+          <span>Restaurant:</span>
+          <select id="restaurant">
+            <option value="korean">Korean Restaurant</option>
+            <option value="fastfood">Fast Food Restaurant</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="layout">
+        <!-- MENU -->
+        <div class="panel">
+          <h2>Menu</h2>
+          <div id="menu-list" class="menu-list"></div>
+        </div>
+
+        <!-- CART -->
+        <div class="panel">
+          <h2>Current Order</h2>
+          <div class="order-id">Order ID: <span id="order-id"></span></div>
+
+          <table class="cart">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th class="num">Price</th>
+                <th class="num">Qty</th>
+                <th class="num">Line</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-body">
+              <!-- rows injected -->
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="right">Total</td>
+                <td class="num" id="total">₩0</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div class="row gap">
+            <button id="checkout-btn" class="primary">Checkout</button>
+            <button id="new-order-btn" class="soft">New Order</button>
+          </div>
+
+          <div id="status" class="status" aria-live="polite"></div>
+        </div>
+
+        <!-- SALES LOG -->
+        <div class="panel">
+          <h2>Sales Log (shared per item)</h2>
+          <ul id="log-list" class="log-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
