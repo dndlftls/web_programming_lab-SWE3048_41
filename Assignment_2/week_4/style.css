@@ -1,0 +1,32 @@
+#login-btn {
+    width: 300px;
+    height: 30px;
+    background-color: green;
+    margin-top: 20px;
+    color: white;
+}
+
+.container {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 75px 30px 0;
+    box-sizing: border-box;
+}
+
+.box {
+    display: flex;
+}
+
+.pw_box {
+    display: flex;
+    margin-top: 10px;
+}
+
+p {
+    width: 40px;
+}
+
+input {
+    margin: 10px 0;
+    flex-grow: 1;
+}
