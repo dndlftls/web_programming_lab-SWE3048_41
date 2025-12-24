@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Feed - SNS</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="main-container">
+    <header class="main-header">
+      <h1>Welcome, <%= username %>!</h1>
+      <div class="header-actions">
+        <a href="/newpost" class="btn btn-primary">Create New Post</a>
+        <a href="/logout" class="btn btn-secondary">Logout</a>
+      </div>
+    </header>
+
+    <main class="posts-feed">
+      <h2>Feed</h2>
+      <% if (posts.length === 0) { %>
+        <p class="no-posts">No posts yet. Be the first to post!</p>
+      <% } else { %>
+        <% posts.forEach(post => { %>
+          <div class="post-card">
+            <div class="post-header">
+              <span class="post-author"><%= post.author %></span>
+              <span class="post-date"><%= new Date(post.createdAt).toLocaleString() %></span>
+            </div>
+            <div class="post-content">
+              <%= post.content %>
+            </div>
+            <div class="post-actions">
+              <!-- Show different button text if user already liked -->
+              <form action="/posts/<%= post._id %>/like" method="POST" class="like-form" style="display: inline;" data-post-id="<%= post._id %>">
+                <% const userLiked = post.likedBy && post.likedBy.includes(username); %>
+                <button type="submit" class="btn <%= userLiked ? 'btn-liked' : 'btn-like' %> like-button" data-liked="<%= userLiked %>">
+                  <span class="like-icon"><%= userLiked ? '❤️' : '👍' %></span>
+                  <span class="like-text"><%= userLiked ? 'Unlike' : 'Like' %></span>
+                  (<span class="like-count"><%= post.likes || 0 %></span>)
+                </button>
+              </form>
+              <% if (username === post.author || userRoles.includes('admin')) { %>
+                <form action="/posts/<%= post._id %>/delete" method="POST" style="display: inline;">
+                  <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </main>
+  </div>
+
+  <script>
+    // Handle like/unlike without page refresh
+    document.addEventListener('DOMContentLoaded', function() {
+      const likeForms = document.querySelectorAll('.like-form');
+      
+      likeForms.forEach(form => {
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const button = form.querySelector('.like-button');
+          const postId = form.getAttribute('data-post-id');
+          const isLiked = button.getAttribute('data-liked') === 'true';
+          
+          // Disable button during request
+          button.disabled = true;
+          button.style.opacity = '0.6';
+          
+          try {
+            const response = await fetch(`/posts/${postId}/like`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              credentials: 'same-origin'
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              // Update button state
+              const likeIcon = button.querySelector('.like-icon');
+              const likeText = button.querySelector('.like-text');
+              const likeCount = button.querySelector('.like-count');
+              
+              if (data.isLiked) {
+                // User liked the post
+                button.classList.remove('btn-like');
+                button.classList.add('btn-liked');
+                button.setAttribute('data-liked', 'true');
+                likeIcon.textContent = '❤️';
+                likeText.textContent = 'Unlike';
+              } else {
+                // User unliked the post
+                button.classList.remove('btn-liked');
+                button.classList.add('btn-like');
+                button.setAttribute('data-liked', 'false');
+                likeIcon.textContent = '👍';
+                likeText.textContent = 'Like';
+              }
+              
+              // Update like count
+              likeCount.textContent = data.likesCount;
+              
+              // Add a subtle animation
+              button.style.transform = 'scale(1.1)';
+              setTimeout(() => {
+                button.style.transform = 'scale(1)';
+              }, 200);
+            } else {
+              console.error('Like action failed:', data.error);
+              alert('좋아요 처리 중 오류가 발생했습니다.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('네트워크 오류가 발생했습니다.');
+          } finally {
+            // Re-enable button
+            button.disabled = false;
+            button.style.opacity = '1';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
